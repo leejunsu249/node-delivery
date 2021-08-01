@@ -1,0 +1,80 @@
+
+{% set title = "JS DELIVERY" %}
+{% extends "layout/client.html" %}
+ 
+{% block content -%}
+  <!-- main -->
+    <main class="container main" id="main_wrap">
+      <section class="row search">
+        <div class="col-xs-12">
+          <h2 class="h6 title">주위에 50개의 식당이 있어요</h2>
+          <div class="input-group searchInputGroup">
+            <label for="searchInput" class="a11y-hidden">식당 검색</label>
+            <input type="text" id="searchInput" class="form-control " placeholder="식당이름으로 검색해보세요">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <span class="a11y-hidden">검색하기</span>
+              </button>
+            </span>
+          </div>
+          <ul class="hash-tag body2">
+            <li><a href="#">#맛집</a></li>
+            <li><a href="#">#피자</a></li>
+            <li><a href="#">#치킨</a></li>
+            <li><a href="#">#햄버거</a></li>
+            <li><a href="#">#파스타</a></li>
+          </ul>
+        </div>
+      </section>
+      <section class="row map">
+        <div class="col-xs-8">
+          <h2 class="sub-title1">가까운 음식점</h2>
+          <p class="body1">근처에 가까운 음식점이 있어요.</p>
+        </div>
+        <div class="col-xs-4">
+          <button type="button" class="pull-right btn btn-point btn-line btn-sm">
+            지도에서 보기
+          </button>
+        </div>
+        <div class="col-xs-12 map-area">
+          <div class="pointer">음식점 위치</div>
+          <div class="user-pointer">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <span class="a11y-hidden">내 위치</span>
+          </div>
+        </div>
+      </section>
+      <section class="row restaurant">
+        <div class="col-xs-7 col-xs-offset-5">
+          <button type="button" class="btn btn-link btn-sort active">
+            <i class="fa fa-map" aria-hidden="true"></i>
+            <i class="fa fa-arrows-h" aria-hidden="true"></i>
+            <span>거리순</span>
+          </button>
+          <button type="button" class="btn btn-link btn-sort">
+            <i class="fa fa-heart" aria-hidden="true"></i>
+            <span>인기순</span>
+          </button>
+        </div>
+        <div class="col-xs-12">
+          <h2 class="a11y-hidden">식당 리스트</h2>
+          <ul class="row restaurant-list">
+          {% for shop in shops %}
+            <li class="col-xs-6">
+              <a href="/shops/{{shop.id}}">
+                <div class="thumb">
+                  <img src="/uploads/{{shop.thumbnail}}" alt="">
+                </div>
+                <h3 class="name sub-title2">{{shop.name}}</h3>
+                <p class="address body2">{{shop.address}}</p>
+              </a>
+            </li>
+            {% endfor %}
+        
+        </div>
+      </section>
+
+    </main>
+
+{% endblock %}

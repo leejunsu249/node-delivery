@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
+    <script src="https://use.fontawesome.com/cfe2d0ff32.js"></script>
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="wrap">
+  {% include "layout/side.html" %}
+        <!-- header -->
+    <header class="container header">
+      <div class="row">
+        <div class="col-xs-10">
+          <a href="/"><h1 class="logo sub-title2 font-nanum">JS <span>DELIVERY</span></h1></a>
+        </div>
+        <div class="col-xs-2">
+          <button type="button" class="btn-toggle-snb pull-right">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+            <span class="a11y-hidden">사이드 메뉴</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+        {% block content %}{% endblock %}
+         <!-- footer -->
+    <footer class="container footer">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="font-nanum sub-title2 text-secondary">JS DELIVERY</h2>
+          <ul class="caption">
+            <li class="address">서울시 은평구 불광동 246 - 12</li>
+            <li class="tel"><span>Tel. </span>010-3956-5681</li>
+            <li class="mail"><span>Mail. </span>75758585@naver.com</li>
+          </ul>
+          <p class="caption">copyright JS DELIVERY All Right Reserved</p>
+        </div>
+      </div>
+    </footer>
+
+   </div>   
+
+   <script>
+   $(document).ready(function(){
+       $('.btn-toggle-snb').click(function(){
+           $('#sb_layer').removeClass('hidden');
+       });
+
+       $('#sb_close_btn').click(function(){
+           $('#sb_layer').toggleClass('hidden');
+       });
+
+   });
+   </script> 
+</body>
+</html>

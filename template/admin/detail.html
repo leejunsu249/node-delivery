@@ -1,0 +1,68 @@
+{% set title = "관리자 : 상세페이지" %}
+{% extends "layout/base.html" %}
+ 
+{% block content -%}
+    
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3><b>{{ shop.name }}<b></h3>
+            </div>
+
+            {% if shop.thumbnail %}
+              <img src="/uploads/{{shop.thumbnail}}" style="max-width: 100%;" alt=""/>
+            {% endif %}
+            
+            <div class="panel-body">
+                <div style="padding-bottom: 10px">
+                    작성일 : {{ shop.dateFormat( shop.createdAt ) }}
+                </div>
+
+                주소 : {{ shop.address }} / {{ shop.location }}
+                <br />
+                전화 : {{ shop.phone }}
+                <br />
+                운영시간 : {{ shop.open_time }}
+                <br />
+                핸드폰 번호 : {{ shop.cell_phone }}
+
+              <hr />
+
+              메뉴 작성하기
+
+              <ul>
+                {% for menu in shop.Menu %}
+                  <li>
+                    {{ menu.name }} / {{ menu.price }} 원
+                    (
+                      <a href="/admin/shops/delete/{{ shop.id }}/{{ menu.id }}" 
+                          onclick="return confirm('삭제하시겠습니까?')">
+                          삭제
+                      </a>
+                    )
+                  </li>
+                {% endfor %}
+              </ul>
+
+              <form action="" method="post">
+                <div class="col-xs-3">
+                  메뉴명 : <input type="text" class="form-control" name="name" required />
+                </div>
+
+                <div class="col-xs-3">
+                  가격 : <input type="text" class="form-control" name="price" required />
+                </div>
+                <div class="col-xs-3">
+                  <button class="btn btn-primary" style="margin-top: 19px">메뉴작성</button>
+                </div>
+              </form>
+
+            </div>
+        </div>
+
+        <a href="/admin/shops" class="btn btn-default">목록으로</a>
+        <a href="/admin/shops/edit/{{ shop.id }}" class="btn btn-primary">수정</a>
+    </div>
+
+
+{% endblock %}

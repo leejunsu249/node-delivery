@@ -1,0 +1,29 @@
+
+{% set title = "관리자 리스트" %}
+{% extends "layout/base.html" %}
+ 
+{% block content -%}
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>상점명</th>
+            <th>작성일</th>
+            <th>삭제</th>
+        </tr>
+        {% for shop in shops %}
+        <tr>
+            <td>
+                <a href="/admin/shops/detail/{{  shop.id }}">{{ shop.name }}</a>
+            </td>
+            <td>
+                {{ shop.dateFormat( shop.createdAt ) }}
+            </td>
+            <td>
+                <a href="/admin/shops/delete/{{ shop.id }}" class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/admin/shops/write" class="btn btn-default">작성하기</a>
+
+{% endblock %}

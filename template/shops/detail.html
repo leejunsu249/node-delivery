@@ -1,0 +1,98 @@
+{% set title = "상점" %}
+{% extends "layout/client.html" %}
+ 
+{% block content %}
+<main class="container detail" >
+      <section class="row img-slider"
+      {% if not shop.thumbnail %}
+        style="background-image: url(/static/images/thumb.jpg">
+      {% else %}
+        style="background-image: url(/uploads/{{shop.thumbnail}}">
+      {% endif %}
+        <div class="col-xs-12">
+          <h2 class="a11y-hidden">이미지 슬라이더</h2>
+          <button type="button" class="btn-prev">
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            <span class="a11y-hidden">이전</span>
+          </button>
+          <button type="button" class="btn-next">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+            <span class="a11y-hidden">다음</span>
+          </button>
+          <ul class="indicator">
+            <li class="active"><a href="">1번째</a></li>
+            <li><a href="">2번째</a></li>
+            <li><a href="">3번째</a></li>
+            <li><a href="">4번째</a></li>
+            <li><a href="">5번째</a></li>
+          </ul>
+        </div>
+      </section>
+      <section class="row restaurant-info">
+        <div class="col-xs-12 name">
+          <h2 class="h6">{{shop.name}}</h2>
+          <button type="button" class="btn btn-link btn-ghost btn-share">
+            <i class="fa fa-share-alt" aria-hidden="true"></i>
+            <span class="a11y-hidden">공유하기</span>
+          </button>
+        </div>
+        <ul class="col-xs-12 info1 body1">
+          <li>{{shop.address}}</li>
+          <li>{{shop.phone}}</li>
+          <li>
+            <button type="button" class="btn btn-link btn-like">
+              <i class="fa fa-heart" aria-hidden="true"></i>
+              <span>0</span>
+            </button>
+          </li>
+        </ul>
+      </section>
+      <section class="row menu-board">
+        <div class="col-xs-12">
+          <div class="menu-box">
+            <h2 class="sub-title1 font-nanum title">대표 메뉴</h2>
+            <ul class="menu-list">
+             {% for menu in shop.Menu %}
+              <li class=""><a href="">
+                <h3 class="sub-title2">{{menu.name}}</h3>
+                <p class="body2">{{menu.price}}원</p>
+              </a></li>
+              {% endfor %}
+              
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="row restaurant-info2 body2">
+        <ul class="col-xs-12">
+          <li>
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <span class="textPrimary">위치</span>
+            <span>{{shop.address}}  {{shop.location}}</span>
+          </li>
+          <li>
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <span class="textPrimary">운영시간</span>
+            <span>{{shop.open_time}}</span>
+          </li>
+          <li>
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <span class="textPrimary">연락처</span>
+            <span>{{shop.cell_phone}}</span>
+          </li>
+        </ul>
+      </section>
+      <section class="row restaurant-map">
+        <div class="col-xs-12">
+          <div class="map-area">
+            <div class="pointer">음식점 위치</div>
+            <div class="user-pointer">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <span class="a11y-hidden">내 위치</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+{% endblock %}

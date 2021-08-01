@@ -1,0 +1,41 @@
+{% set title = "상점 등록" %}
+{% extends "layout/base.html" %}
+ 
+{% block content -%}
+    <form action="" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <table class="table table-bordered">
+            <tr>
+              <th>이름</th>
+              <td><input type="text" name="name" class="form-control" value="{{ shop.name }}" /></td>
+            </tr>
+            <tr>
+              <th>썸네일</th>
+              <td>
+                <input type="file" name="thumbnail"/>
+              </td>
+            </tr>
+            <tr>
+              <th>주소</th>
+              <td><input type="text" name="address" class="form-control" value="{{ shop.address }}"/></td>
+            </tr>
+            <tr>
+              <th>상세주소</th>
+              <td><input type="text" name="location" class="form-control" value="{{ shop.location }}" /></td>
+            </tr>
+            <tr>
+              <th>전화번호</th>
+              <td><input type="text" name="phone" class="form-control" value="{{ shop.phone }}" /></td>
+            </tr>
+            <tr>
+              <th>운영시간</th>
+              <td><input type="text" name="open_time" class="form-control" value="{{ shop.open_time }}" placeholder="오전10시~오후6시"/></td>
+            </tr>
+            <tr>
+              <th>핸드폰번호</th>
+              <td><input type="text" name="cell_phone" class="form-control" value="{{ shop.cell_phone }}"/></td>
+            </tr>
+        </table>
+        <button class="btn btn-primary">작성하기</button>
+    </form>
+{% endblock %}

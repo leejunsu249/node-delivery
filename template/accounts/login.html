@@ -1,0 +1,42 @@
+{% set title = "로그인" %}
+{% extends "layout/client.html" %}
+ 
+{% block content -%}
+    <main class="container join" style="margin-top: 50px">
+      <section class="row">
+      <form role="form" action="" id="login_form" method="post">        
+        <div class="col-xs-12">
+        {% if flashMessage %}
+            <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
+        {% endif %}
+          <h2 class="a11y-hidden">로그인</h2>
+          <ul class="join-input-item">
+            <li class="form-group has-feedback">
+              <label class="control-label sr-only" for="inputEmail">아이디</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                <input type="text" name="username" class="input-lg form-control" id="inputEmail" aria-describedby="inputEmail" placeholder="아이디를 입력하세요" required ="true">
+              </div>
+            </li>
+            <li class="form-group has-feedback">
+              <label class="control-label sr-only" for="inputPassword">비밀번호</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                <input type="password" name="password" class="input-lg form-control" id="inputPassword" aria-describedby="inputPassword" placeholder="비밀번호를 입력하세요" required ="true">
+              </div>
+            </li>
+          </ul>
+          <button type="submit" class="btn btn-lg btn-main btn-fill btn-block">로그인 하기</button>
+             <a href="/auth/facebook" class="btn btn-lg btn-primary btn-block">
+                 <i class="fa fa-facebook" aria-hidden="true"></i> 페이스북 로그인
+             </a>
+             <a href="/auth/kakao" class="btn btn-lg btn-warning btn-block">
+                <i class="fa fa-comment" aria-hidden="true"></i> 카카오 로그인
+             </a>
+             <a href="./join" class="btn btn-lg btn-info btn-block">회원가입</a>
+            
+            </div>
+        </form>
+      </section>
+    </main>
+{% endblock %}

@@ -1,0 +1,42 @@
+ <!-- sidebar -->
+    <div class="container snb hidden 
+    {% if isLogin %}login {% else %} logout {% endif %}" 
+    id="sb_layer" >
+      <div class="row">
+        <div class="col-xs-9 col-xs-offset-3 snb-bg">
+          <div class="snb-title">
+          {% if isLogin %}
+            <h2 class="sub-title1">{{currentUser.displayname}}님 안녕하세요</h2>
+            {% else %} 
+            <h2 class="sub-title1">로그인</h2>
+            {% endif %}
+
+            <button type="button" class="btn btn-closed" id="sb_close_btn">
+              <i class="fa fa-times" aria-hidden="true"></i>
+              <span class="a11y-hidden">닫기</span>
+            </button>
+          </div>
+          <div class="contents-area login-before">
+            <p class="body1">모든 서비스를 이용하기 위해서는 로그인 하셔야 합니다.</p>
+            <a href="/accounts/login" id="sd_login_btn" class="btn btn-point btn-line btn-block btn-lg btn-login">로그인</a>
+            <span class="divider">또는</span>
+            <a href="/accounts/join" id="sd_join_btn" class="btn btn-main btn-fill btn-block btn-lg btn-join" id="join_btn">회원가입</a>
+          </div>
+          <div class="contents-area login-after">
+            <ul class="login-menu sub-title2">
+              <li><a href="">
+                <i class="fa fa-file-text" aria-hidden="true"></i>
+                주문현황
+              </a></li>
+              <li><a href="">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+                나의 찜 목록
+              </a></li>
+            </ul>
+            <a href="/accounts/logout" class="btn btn-default btn-block btn-lg">로그아웃</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    

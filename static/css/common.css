@@ -1,0 +1,193 @@
+/* color */
+/* .mainLight {
+  color: #ff7a85;
+}
+.main {
+  color: #ff0014;
+}
+.mainDark {
+  color: #a80f1b;
+}
+.subLight {
+  color: #ffe2a3;
+}
+.sub {
+  color: #ffbe32;
+}
+.subDark {
+  color: #c38600;
+} */
+
+/* typography */
+@font-face {
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+    format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+html {
+  font-size: 10px;
+}
+
+body,
+.body1,
+p {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  font-weight: 400;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+p {
+  margin: 0;
+}
+.h1,
+.h2,
+.h3 {
+  font-weight: 100;
+}
+
+.h1 {
+  font-size: 8rem;
+  line-height: 12rem;
+}
+
+.h2 {
+  font-size: 6.4rem;
+  line-height: 9.6rem;
+}
+
+.h3 {
+  font-size: 5.2rem;
+  line-height: 7.8rem;
+}
+
+.h4 {
+  font-size: 4rem;
+  line-height: 6rem;
+}
+
+.h5 {
+  font-size: 3.2rem;
+  line-height: 4.8rem;
+}
+
+.h6,
+.sub-title1 {
+  font-weight: 500;
+}
+
+.h6 {
+  font-size: 2.4rem;
+  line-height: 3.6rem;
+}
+
+.sub-title1 {
+  font-size: 2rem;
+  line-height: 2.8rem;
+}
+
+.sub-title2 {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  font-weight: 700;
+}
+
+.body2 {
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.caption {
+  font-size: 1.2rem;
+  line-height: 2rem;
+}
+
+.overline {
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+.font-nanum {
+  font-family: "NanumSquareRound", sans-serif;
+  font-weight: 900;
+}
+
+.text-primary,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.sub-title1,
+.sub-title2 {
+  color: #202020;
+}
+
+.text-secondary,
+body,
+.body1,
+.body2,
+p,
+.caption,
+.overline {
+  color: #707070;
+}
+
+.text-disabled {
+  color: #b0b0b0;
+}
+
+/* btn */
+.btn-point {
+  border-color: #ffbe32;
+  background-color: #ffbe32;
+}
+.btn-main {
+  border-color: #ff0014;
+  background-color: #ff0014;
+}
+.btn-fill {
+  color: #fff;
+}
+.btn-fill:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.btn-line {
+  color: #202020;
+  background-color: #fff;
+}
+.btn-ghost {
+  color: #707070;
+}
+
+.a11y-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  clip: rect(0, 0, 0, 0);
+  clip-path: polygon(0 0, 0 0, 0 0);
+}
+
+ul,
+ol {
+  padding-left: 0;
+  list-style: none;
+}
