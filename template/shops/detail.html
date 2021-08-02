@@ -53,7 +53,13 @@
             <h2 class="sub-title1 font-nanum title">대표 메뉴</h2>
             <ul class="menu-list">
              {% for menu in shop.Menu %}
-              <li class=""><a href="">
+              <li class=""><a 
+                href=""
+                menu_id="{{menu.id}}"
+                name="{{menu.name}}"
+                price="{{menu.price}}"
+                class="getCart"
+              >
                 <h3 class="sub-title2">{{menu.name}}</h3>
                 <p class="body2">{{menu.price}}원</p>
               </a></li>
@@ -94,5 +100,35 @@
         </div>
       </section>
     </main>
+        <a href="/cart" class="btn-cart " id="cart_btn">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <i class="cart-item-counter">0</i>
+       </a>
+<script>
+$(document).ready(function(){
 
+    $('.getCart').click(function(e){
+      e.preventDefault();
+      const menuN = $(this).attr('name');
+      if(confirm(menuN +'를 담기')){
+          const shop_id = {{shop.id}};
+          const menu_id = $(this).attr('menu_id');
+          const price = $(this).attr('price');
+
+          var cartList = {};
+
+          if( getCookie('cartList')){
+            cartList = JSON.parse(getCookie('cartList'));
+          }
+          cartList[menu_id] = {
+            shop_id,
+            name:menuN,
+            price,
+          }
+          console.log(menuN);
+          setCookie("cartList", JSON.stringify(cartList), 3);
+      }
+    });
+});
+</script>
 {% endblock %}

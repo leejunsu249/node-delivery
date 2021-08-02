@@ -1,0 +1,66 @@
+{% set title = "카트보기" %}
+{% extends "layout/client.html" %}
+{% block content -%} 
+<main class="container">
+   <h1 class=" sub-title1 font-nanum title" style="margin: 20px 0 0 0">카트</h3>
+   <table class="table table-bordered table-hover">
+       <tr>
+           <th class="sub-title2">메뉴명</th>
+           <th class="sub-title2">가격</th>
+           <th></th>
+       </tr>
+       {% for key , cart in cartList %}
+           <tr>
+               <td class="sub-title2" >{{ cart.name }}</td>
+               <td>{{ cart.price }} 원</td>
+               <td style="text-align:center">
+                   <a href=""
+                   nameN={{ cart.name }}
+                   key = {{key}}
+                   class="btn btn-danger delCart"
+                    >삭제</a>
+               </td>
+           </tr>
+       {% else %}
+           <tr>
+               <td colspan="3" style="text-align:center">카트에 아무것도 안담겼습니다.</td>
+           </tr>
+       {% endfor %}
+   </table>
+
+
+   <div class="sub-title1 font-nanum title text-center" style="font-size:30px; margin-bottom:20px;">
+       결제금액 : <span style="color:red"> {{ totalAmount }} </span> 원
+   </div>
+   <div class="text-center">
+       <a href="javascript:history.back();" class="btn btn-default" id="continue_btn" style="margin-right:10px;">계속담기</a>
+       <a href="/checkout" class="btn btn-primary">결제하기</a>
+   </div>
+</main>
+
+<script>
+$(document).ready(function(){
+    $('.delCart').click( function(e){
+        e.preventDefault();
+        const name = $(this).attr('nameN');
+        if(confirm(name+'를 삭제하시겠습니까')){
+            const menu_id =  parseInt($(this).attr('key'));
+
+            let cartList = {};
+            if(getCookie('cartList')){
+                cartList = JSON.parse(getCookie('cartList'));
+                delete cartList[menu_id];
+            }
+
+            setCookie('cartList',JSON.stringify(cartList), 3);
+            location.reload();
+
+        }
+    });
+    {# $('#continue_btn').click(function{
+      
+    }); #}
+});
+</script>
+
+{% endblock %}
