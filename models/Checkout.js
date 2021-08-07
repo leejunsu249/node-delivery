@@ -46,7 +46,7 @@ module.exports = function(sequelize, DataTypes){
     }
 
     Checkout.prototype.dateFormat = (date) => (
-        moment(date).format('YYYY-MM-DD // h:mm')
+        moment(date).format('YYYY-MM-DD  hh:mm')
     );
 
     return Checkout;

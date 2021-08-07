@@ -151,3 +151,38 @@ exports.remove_menu = async(req, res) => {
 	}
 
 }
+
+exports.get_order = async (req, res) => {
+    try{
+        const checkouts = await models.Checkout.findAll();
+        res.render('admin/order.html', {checkouts});
+    }catch(e){
+        console.error(e);
+    }
+}
+
+exports.get_order_edit = async (req, res) => {
+    try{
+        const checkout = await models.Checkout.findOne({
+            where : {
+                id: req.params.id,
+            },
+            include : ['Menu', 'Shop'],
+        });
+        res.render('admin/order_edit.html', {checkout});
+    }catch(e){
+        console.error(e);
+    }
+}
+
+exports.remove_order = async (req, res) => {
+    try{
+        const checkout = await models.Checkout.destroy({
+            where:{id:req.params.id},
+            include:['Menu'],
+        })
+        res.redirect('/admin/order');
+    }catch(e){
+        console.error(e);
+    }
+}

@@ -28,6 +28,11 @@ router.post('/shops/detail/:id' , ctrl.add_menu);
 // 메뉴 삭제
 router.get('/shops/delete/:shop_id/:menu_id', ctrl.remove_menu );
 
+router.get('/order', ctrl.get_order);
+
+router.get('/order/edit/:id', ctrl.get_order_edit);
+
+router.get('/order/remove/:id', ctrl.remove_order);
 
 
 module.exports = router;

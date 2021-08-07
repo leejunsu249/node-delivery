@@ -121,6 +121,7 @@
             }
         }).done((res) => {
             alert('결제가 완료되었습니다.');
+            delCookie('cartList');
             document.location.href="/checkout/success";
         }).fail((e) => {
             console.log(e);
