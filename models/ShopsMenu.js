@@ -8,6 +8,20 @@ module.exports = (sequelize, DataTypes) => {
             tableName: 'ShopsMenu'
         }
     );
+
+    ShopsMenu.associate = (models) => {
+
+        ShopsMenu.belongsToMany( models.Checkout, {
+            through : {
+                model: 'CheckoutMenu',
+                unique: false
+            },
+            as : 'Checkout',
+            foreignKey : 'menu_id',
+            constraints: false,
+            sourceKey : 'id'
+        });
+    }
     
     return ShopsMenu;
 }

@@ -102,12 +102,32 @@
     </main>
         <a href="/cart" class="btn-cart " id="cart_btn">
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        <i class="cart-item-counter">0</i>
+        <i class="cart-item-counter">{{cartLength}}</i>
        </a>
 <script>
 $(document).ready(function(){
 
+      $('#cart_btn').click(function() {
+      var cartCounter = parseInt( $('.cart-item-counter').text() );
+      if(!cartCounter){
+        alert(' 카트를 담아주세요.');
+      }else{
+        location.href="/cart"
+      }
+    });
+
     $('.getCart').click(function(e){
+
+      let shopFlag = {{shopFlag}};     
+      if(!shopFlag){
+         if(confirm("카트에 같은 가게의 메뉴만 담을 수 있습니다.'\n'카트를 삭제하고 새로 담으시겠습니까?")){
+           delCookie('cartList');
+           
+         }else{
+           return false;
+         }
+      }
+      
       e.preventDefault();
       const menuN = $(this).attr('name');
       if(confirm(menuN +'를 담기')){
@@ -127,6 +147,7 @@ $(document).ready(function(){
           }
           console.log(menuN);
           setCookie("cartList", JSON.stringify(cartList), 3);
+          $('.cart-item-counter').text(Object.keys(cartList).length);
       }
     });
 });

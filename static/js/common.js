@@ -23,3 +23,8 @@ function setCookie( name, value, hours){
   document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + now.toUTCString() + ";"  
 
 }
+
+function delCookie(name){
+
+    setCookie(name, 0, 0);
+}
