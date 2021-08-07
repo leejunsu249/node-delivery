@@ -8,7 +8,7 @@ dotenv.config(); //LOAD CONFIG
 const sequelize = new Sequelize( process.env.DATABASE,
 process.env.DB_USER, process.env.DB_PASSWORD,{
     host: process.env.DB_HOST,
-    dialect: 'mysql',
+    dialect: process.env.DB_DIALECT,
     timezone: '+09:00', //한국 시간 셋팅
     operatorsAliases: Sequelize.Op,
     pool: {

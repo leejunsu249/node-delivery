@@ -17,6 +17,8 @@ module.exports = function(sequelize, DataTypes){
 
         status : { type: DataTypes.STRING }, //결재상태
 
+        geo : {type :DataTypes.GEOMETRY('POINT')},
+
     },{
         tableName: 'Checkout'
         }
