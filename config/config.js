@@ -26,3 +26,6 @@ const test = {
 };
 
 module.exports = { development, production, test };
+
+//npx sequelize-cli db:migrate
+//npx sequelize-cli db:migrate --env test 테스트 사용

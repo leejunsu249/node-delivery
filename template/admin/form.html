@@ -17,7 +17,17 @@
             </tr>
             <tr>
               <th>주소</th>
-              <td><input type="text" name="address" class="form-control" value="{{ shop.address }}"/></td>
+              <td>
+              <div class="form-inline">
+                <input type="hidden" name="geo" value="{{shop.geo.coordinates[0]}}, {{shop.geo.coordinates[1]}}"/>
+                <input type="text" name="address" class="form-control" value="{{ shop.address }}" style: "width:300px;"/>
+                <a class="btn btn-primary btn-sm btn_select" id="map_search" style="display: inline-block">
+                주소 검색
+                </a>
+                </div>
+                <br/>
+                <div id ="map_area" style="width:100%; height:250px; margine:10px 0 50px 0; visibility:hidden;"></div>
+              </td>
             </tr>
             <tr>
               <th>상세주소</th>
@@ -38,4 +48,44 @@
         </table>
         <button class="btn btn-primary">작성하기</button>
     </form>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/static/js/kakaomap.js"></script>
+<script>
+
+var mapContainer = new kakao.maps.Map(
+   document.getElementById("map_area"),
+   {
+       center: new kakao.maps.LatLng(37.5690366,126.9503368), 
+       level: 3
+    }
+);
+
+$('#map_search').click(function(){
+  var $address = $('input[name=address]');
+  var $name = $('input[name=name]');
+
+  new daum.Postcode({
+        oncomplete: function(data) { 	
+        	console.log(data);
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var jibunAddr = data.jibunAddress; // 지번 주소 변수
+            
+            if(roadAddr !== ''){
+                $address.val(roadAddr);
+            } 
+            else if(jibunAddr !== ''){
+                $address.val(jibunAddr);
+            }
+              mapSearchByAddress(
+              mapContainer,
+              '#map_area',
+              'input[name=geo]',
+              $name,
+              $address,
+            );
+        }
+    }).open();
+});
+
+</script>
 {% endblock %}

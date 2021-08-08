@@ -1,4 +1,4 @@
-const models = require('../../models');
+const models= require('../../models');
 
 exports.get_shops = async ( _ , res ) => {
 
@@ -143,7 +143,7 @@ exports.remove_menu = async(req, res) => {
 						id: req.params.menu_id
 				}
 		});
-		
+	
 		res.redirect('/admin/shops/detail/' + req.params.shop_id );
 
 	}catch(e){
@@ -177,11 +177,11 @@ exports.get_order_edit = async (req, res) => {
 
 exports.remove_order = async (req, res) => {
     try{
-        const checkout = await models.Checkout.destroy({
-            where:{id:req.params.id},
-            include:['Menu'],
-        })
-        res.redirect('/admin/order');
+       const Checkout = await models.Checkout.destroy({
+            where:{id : req.params.id}
+        });
+
+        res.redirect('/admin/order/');
     }catch(e){
         console.error(e);
     }

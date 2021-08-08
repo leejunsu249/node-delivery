@@ -17,8 +17,6 @@ module.exports = function(sequelize, DataTypes){
 
         status : { type: DataTypes.STRING }, //결재상태
 
-        geo : {type :DataTypes.GEOMETRY('POINT')},
-
     },{
         tableName: 'Checkout'
         }
@@ -28,12 +26,13 @@ module.exports = function(sequelize, DataTypes){
         Checkout.belongsToMany( models.ShopsMenu, {
             through : {
                 model: 'CheckoutMenu',
-                unique: false
+                unique: false,
             },
             as : 'Menu',
             foreignKey : 'checkout_id',
             constraints : false,
-            sourceKey : 'id'
+            sourceKey : 'id',
+
         });
 
         Checkout.belongsTo( models.Shops,

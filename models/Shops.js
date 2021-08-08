@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
             location : { type: DataTypes.STRING , comment: '상세주소' },
             phone : { type: DataTypes.STRING , comment: '전화번호' },
             open_time : { type: DataTypes.STRING , comment: '운영시간' },
-            cell_phone : { type: DataTypes.STRING , comment: '핸드폰번호' }
+            cell_phone : { type: DataTypes.STRING , comment: '핸드폰번호' },
+            geo : {type :DataTypes.GEOMETRY('POINT')},
         }
     );
 

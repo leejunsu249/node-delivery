@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!--폰트어섬추가 -->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--폰트어섬추가 -->
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{map_api.KAKAO_JAVASCRIPT_KEY}}&libraries=services"></script>
 </head>
 <body>
     <div class="container" style="padding-top: 10px;">
@@ -27,6 +28,7 @@
                         {% from "macro/link.html" import link %}
                         {{ link( '/admin/shops' , "ADMIN" , req_path ) }}
                         {{ link( '/chat' , "CHAT" , req_path ) }}
+                        {{ link('/admin/order/', "ORDER", req_path)}}
                        
 
                     </ul> 
