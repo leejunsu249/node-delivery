@@ -191,7 +191,15 @@ exports.get_order_edit = async (req, res) => {
 
 exports.remove_order = async (req, res) => {
     try{          
-       const Checkout = await models.Checkout.destroy({
+        const checkout = await models.Checkout.findByPk(req.params.id);
+        const menuArray = await models.ShopsMenu.findAll({
+            include: ['Checkout'],
+            where:{[`$Checkout.id$`]: req.params.id},
+        });
+
+        await checkout.removeMenu(menuArray);
+
+        await models.Checkout.destroy({
             where:{id : req.params.id}
         });
 
