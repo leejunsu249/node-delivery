@@ -28,6 +28,7 @@
     "passport-local": "^1.0.0",
     "rimraf": "^3.0.2",
     "sequelize": "^4.44.4",
-    "socket.io": "^3.1.2"
+    "socket.io": "^3.1.2",
+    "terraformer-wkt-parser": "^1.2.1"
   }
 }

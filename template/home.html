@@ -37,13 +37,8 @@
             지도에서 보기
           </button>
         </div>
-        <div class="col-xs-12 map-area">
-          <div class="pointer">음식점 위치</div>
-          <div class="user-pointer">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            <span class="a11y-hidden">내 위치</span>
-          </div>
-        </div>
+        
+        <div id="map_area" style="width:100%;height:350px; margin:10px 0 50px 0;"></div>
       </section>
       <section class="row restaurant">
         <div class="col-xs-7 col-xs-offset-5">
@@ -76,5 +71,40 @@
       </section>
 
     </main>
+<script src="/static/js/kakaomap.js"></script>
+<script>
+var shops = {{shops | dump | safe}};
+
+if(navigator.geolocation){
+
+  navigator.geolocation.getCurrentPosition(function(position){
+  var  lat = position.coords.latitude;
+  var  lng = position.coords.longitude;
+
+  var mapContainer = new kakao.maps.Map(
+
+   document.getElementById("map_area"),
+   {
+       center: new kakao.maps.LatLng(lat,lng), 
+       level: 5
+    }
+  );
+  homeMap(mapContainer, shops);
+  mapContainer.setCenter(new kakao.maps.LatLng(lat,lng));
+  }, function(error){
+
+    if(error.code ==1){
+      alert('위치정보를 허용해주세요');
+    }else if(error.code ==2){
+      alert('유효하지 않은 위치입니다.');
+    }
+
+  },{timeout : 5000})
+
+}else{
+  alert('지도관련 기능을 사용할 수 없습니다.');
+}
+
+</script>
 
 {% endblock %}

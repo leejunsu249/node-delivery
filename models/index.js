@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv');
+const wkt = require('terraformer-wkt-parser');
 
 dotenv.config(); //LOAD CONFIG
 
@@ -35,6 +36,14 @@ Object.keys(db).forEach(modelName => {
         db[modelName].associate(db);
     }
 });
+
+Sequelize.GEOMETRY.prototype._stringify = function _stringify(value, options) {
+    return 'ST_GeomFromText(' + options.escape(wkt.convert(value)) + ')'
+   }
+   Sequelize.GEOGRAPHY.prototype._stringify = function _stringify(value, options) {
+    return 'ST_GeomFromText(' + options.escape(wkt.convert(value)) + ')'
+   }
+   
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

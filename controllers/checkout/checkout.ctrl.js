@@ -24,7 +24,7 @@ exports.post_complete = async(req, res) => {
     try{
       const checkout = await models.Checkout.create(req.body);
 
-      const menuArray = req.body.menuArray; //중괄호 오류 분리
+      const menuArray = JSON.parse(req.body.menuArray); //중괄호 오류 분리
 
       async function asyncSetMenu(menu_id){
         try{

@@ -21,6 +21,14 @@ exports.get_shops_write = ( req , res ) => {
 exports.post_shops_write = async (req,res) => {
 
     try{
+        req.body.geo = {
+            type: 'Point',
+            coordinates: [
+                req.body.geo.split(',')[0] ,
+                req.body.geo.split(',')[1]
+            ]
+        };
+ 
         req.body.thumbnail = (req.file) ? req.file.filename : "";
         await models.Shops.create(req.body);
         res.redirect('/admin/shops');
@@ -77,14 +85,20 @@ exports.post_shops_edit = async(req, res) => {
 		const uploadDir = path.join( __dirname , '../../uploads' );
 
     try{
+        req.body.geo = {
+            type: 'Point',
+            coordinates: [
+                req.body.geo.split(',')[0] ,
+                req.body.geo.split(',')[1]
+            ]
+        };
 
         const shop = await models.Shops.findByPk(req.params.id);
         
-        if(req.file && shop.thumbnail){  //요청중에 파일이 존재 할시 이전이미지 지운다.
+        if(req.file && shop.thumbnail){  
                 fs.unlinkSync( uploadDir + '/' + shop.thumbnail );
         }
 
-				// 파일요청이면 파일명을 담고 아니면 이전 DB에서 가져온다
         req.body.thumbnail = (req.file) ? req.file.filename : shop.thumbnail;
 
         await models.Shops.update(
@@ -176,7 +190,7 @@ exports.get_order_edit = async (req, res) => {
 }
 
 exports.remove_order = async (req, res) => {
-    try{
+    try{          
        const Checkout = await models.Checkout.destroy({
             where:{id : req.params.id}
         });

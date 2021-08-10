@@ -51,19 +51,29 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/static/js/kakaomap.js"></script>
 <script>
-
 var mapContainer = new kakao.maps.Map(
+
+
    document.getElementById("map_area"),
    {
        center: new kakao.maps.LatLng(37.5690366,126.9503368), 
        level: 3
     }
 );
+{% if shop.address and shop.geo  %}
+mapSearchByAddress(
+   mapContainer ,
+   '#map_area',
+   'input[name=geo]' ,  
+   $('input[name=name]') ,
+   $('input[name=address]')
+
+);
+{% endif %}
 
 $('#map_search').click(function(){
   var $address = $('input[name=address]');
   var $name = $('input[name=name]');
-
   new daum.Postcode({
         oncomplete: function(data) { 	
         	console.log(data);

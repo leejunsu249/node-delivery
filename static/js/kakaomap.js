@@ -18,6 +18,7 @@ geocoder.addressSearch($address_val, function(result, status){
         $(geoInput).val(
             result[0].x + ',' + result[0].y
         );
+
         var imageSrc = '/static/images/icon_pointer.png';
         var imageSize = new kakao.maps.Size(40, 46);
 
@@ -52,4 +53,56 @@ geocoder.addressSearch($address_val, function(result, status){
     }
 
 });
+};
+
+var mapSearchByAddressCL = function( map , lat,lng, name){
+
+            var imageSrc = '/static/images/icon_pointer.png';
+            var imageSize = new kakao.maps.Size(40, 46);
+    
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+    
+            var marker =  new kakao.maps.Marker({
+                map, 
+                position:new kakao.maps.LatLng( lat , lng ), 
+                image:markerImage
+            });
+    
+    
+            var infowindow = new kakao.maps.InfoWindow({
+                content :'<div style="width:150px; text-align:center; padding:6px 2px; font-weight:bold;"> \
+                '+name+'\
+            </div>'
+    
+            });
+    
+            infowindow.open(map, marker);
+    };
+
+var homeMap = function(mapContainer, shops) {
+
+ 
+    var imageSrc = '/static/images/icon_pointer.png';
+    var imageSize = new kakao.maps.Size(40, 46); 
+    
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+
+    for( let key in shops){
+      if(shops[key].geo !== null){
+        var marker = new kakao.maps.Marker({
+            map: mapContainer, 
+            position: new kakao.maps.LatLng(shops[key].geo.coordinates[1], shops[key].geo.coordinates[0]), 
+            image  : markerImage 
+        });
+   
+        var infowindow = new kakao.maps.InfoWindow({
+            content :`<div style="width:150px; text-align:center; padding:6px 2px; font-weight:bold;"><a href="/shops/${shops[key].id}/">${shops[key].name}</div>`
+
+        });
+
+        infowindow.open(mapContainer, marker);
+      }
+    }
+
+
 };
