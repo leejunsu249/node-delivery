@@ -2,7 +2,9 @@ const models = require('../../models');
 
 exports.get_home_list =  async( _ , res, next )=>{
     try{
-    const shops = await models.Shops.findAll();
+    // const shops = await models.Shops.findAll({
+    //     attributes:
+    // });
     res.render('home.html', {shops});
     }catch(e){
         console.error(e);
