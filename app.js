@@ -127,6 +127,8 @@ class App {
 		this.app.locals.currentUser = req.user;
 
         this.app.locals.req_path = req.path;
+
+        this.app.locals.req_query = req.query;
         
         this.app.locals.map_api = {
             KAKAO_JAVASCRIPT_KEY : process.env.KAKAO_JS,

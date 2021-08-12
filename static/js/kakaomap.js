@@ -79,13 +79,20 @@ var mapSearchByAddressCL = function( map , lat,lng, name){
             infowindow.open(map, marker);
     };
 
-var homeMap = function(mapContainer, shops) {
+var homeMap = function(mapContainer, shops, mylat, mylng) {
 
  
     var imageSrc = '/static/images/icon_pointer.png';
     var imageSize = new kakao.maps.Size(40, 46); 
+
+    var myImageSrc = '/static/images/icon_userPoint.png';
+    var myImageSize = new kakao.maps.Size(23, 23);
+
+
     
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    var myImage = new kakao.maps.MarkerImage(myImageSrc, myImageSize); 
+
 
     for( let key in shops){
       if(shops[key].geo !== null){
@@ -104,5 +111,10 @@ var homeMap = function(mapContainer, shops) {
       }
     }
 
+    var marker = new kakao.maps.Marker({
+        map: mapContainer, 
+        position: new kakao.maps.LatLng(mylat, mylng), 
+        image  : myImage 
+    });
 
 };

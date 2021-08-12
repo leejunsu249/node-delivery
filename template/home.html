@@ -42,7 +42,9 @@
       </section>
       <section class="row restaurant">
         <div class="col-xs-7 col-xs-offset-5">
-          <button type="button" class="btn btn-link btn-sort active">
+          <button type="button" id= "order_byNear" class="btn btn-link btn-sort
+          {% if req_query.lat and req_query.lng %}active{% endif %}">
+          
             <i class="fa fa-map" aria-hidden="true"></i>
             <i class="fa fa-arrows-h" aria-hidden="true"></i>
             <span>거리순</span>
@@ -74,23 +76,27 @@
 <script src="/static/js/kakaomap.js"></script>
 <script>
 var shops = {{shops | dump | safe}};
+window._defaultGeo = {
+  lat : 37.628725516971784,
+  lng : 127.02506972895507
+}
 
 if(navigator.geolocation){
 
   navigator.geolocation.getCurrentPosition(function(position){
-  var  lat = position.coords.latitude;
-  var  lng = position.coords.longitude;
+  window._defaultGeo.lat = position.coords.latitude;
+  window._defaultGeo.lng = position.coords.longitude;
 
   var mapContainer = new kakao.maps.Map(
 
    document.getElementById("map_area"),
    {
-       center: new kakao.maps.LatLng(lat,lng), 
+       center: new kakao.maps.LatLng(window._defaultGeo.lat,window._defaultGeo.lng), 
        level: 5
     }
   );
-  homeMap(mapContainer, shops);
-  mapContainer.setCenter(new kakao.maps.LatLng(lat,lng));
+  homeMap(mapContainer, shops, window._defaultGeo.lat, window._defaultGeo.lng);
+  mapContainer.setCenter(new kakao.maps.LatLng(window._defaultGeo.lat,window._defaultGeo.lng));
   }, function(error){
 
     if(error.code ==1){
@@ -104,6 +110,14 @@ if(navigator.geolocation){
 }else{
   alert('지도관련 기능을 사용할 수 없습니다.');
 }
+
+$(document).ready(function(){
+
+  $('#order_byNear').click(function(e){
+      location.href = `/?lat=${window._defaultGeo.lat}&lng=${window._defaultGeo.lng}`;
+  });
+
+});
 
 </script>
 

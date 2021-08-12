@@ -24,7 +24,7 @@ exports.post_complete = async(req, res) => {
     try{
       const checkout = await models.Checkout.create(req.body);
 
-      const menuArray = req.body.menuArray; //중괄호 오류 분리
+      const menuArray = JSON.parse(req.body.menuArray); //중괄호 오류 분리
 
       const result = await Promise.all(
         menuArray.map(menu => {          
@@ -32,25 +32,8 @@ exports.post_complete = async(req, res) => {
       
         }),
       );
-        console.log(result);
       await checkout.addMenu(result);
-
-
-      // async function asyncSetMenu(menu_id){
-      //   try{
-      //     const menu = await models.ShopsMenu.findByPk( menu_id );
-      //     const status = await checkout.addMenu(menu);
-      //     if(typeof status == 'undefined'){
-      //       throw `menu :: ${menu_id}가 존재하지 않습니다.`;
-      //     }
-      //   }catch(e){
-      //     throw e;
-      //   }
-      // }
-
-      // for (let menu_id of menuArray) await asyncSetMenu(menu_id);
     
-
       res.json({message:"success"});
 
     }catch(e){
