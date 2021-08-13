@@ -16,6 +16,16 @@ module.exports = (sequelize, DataTypes) => {
     );
 
      Shops.associate = (models) => {
+        Shops.belongsToMany( models.User, {
+            through: {
+              model: 'LikesShops',
+              unique: false
+            },
+            as: 'LikeUser',
+            foreignKey: 'shop_id',
+            sourceKey: 'id',
+            constraints: false,
+          });
 
         Shops.hasMany( models.ShopsMenu , 
             { as: 'Menu' , foreignKey: 'shop_id', sourceKey: 'id' , onDelete: 'CASCADE' }

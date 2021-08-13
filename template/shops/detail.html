@@ -40,10 +40,18 @@
           <li>{{shop.address}}</li>
           <li>{{shop.phone}}</li>
           <li>
-            <button type="button" class="btn btn-link btn-like">
+            {% if isLogin %}
+            <a  id="likeButton" shopId="{{ shop.id }}" class="btn btn-link btn-like 
+            {% if likeFlag %} active {% endif %} ">
               <i class="fa fa-heart" aria-hidden="true"></i>
-              <span>0</span>
-            </button>
+              <span>{{countLike}}</span>
+            </a>
+            {% else %}
+            <a href="/accounts/login"  class="btn btn-link btn-like" >
+              <i class="fa fa-heart" aria-hidden="true"></i>
+              <span>{{countLike}}</span>
+            </a>
+          {% endif %}
           </li>
         </ul>
       </section>
@@ -99,6 +107,7 @@
         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <i class="cart-item-counter">{{cartLength}}</i>
        </a>
+
 <script src="/static/js/kakaomap.js"></script>
 <script>
 $(document).ready(function(){
@@ -165,6 +174,38 @@ mapSearchByAddressCL(
           setCookie("cartList", JSON.stringify(cartList), 3);
           $('.cart-item-counter').text(Object.keys(cartList).length);
       }
+    });
+
+    $('#likeButton').click(function(e){
+      e.preventDefault();      
+      var shop_id = parseInt($(this).attr('shopId'));
+      var self = $(this);
+      if(!$(this).hasClass('active')){
+          $.ajax({
+            url : '/shops/like/' + shop_id,
+            method : 'POST'
+          }).done(function(result){
+            if(result.status.length){
+                self.addClass('active');
+                var count = parseInt(self.children('span').text());
+                self.children('span').text(count+1);
+            }  
+          }).fail(function(){
+
+          })
+      }else{
+          $.ajax({
+            url : '/shops/like/' + shop_id,
+            method : 'DELETE'
+          }).done(function(){
+              self.removeClass('active');
+              var count = parseInt(self.children('span').text());
+                self.children('span').text(count-1);
+          }).fail(function(){
+
+          })
+      }
+
     });
 });
 </script>

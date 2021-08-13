@@ -5,8 +5,16 @@ exports.get_shops_detail = async (req, res, next) => {
     try{
          const shop = await models.Shops.findOne({
              where: { id : req.params.id},
-             include : ['Menu'],
+             include : ['Menu', 'LikeUser'],
          })
+
+         let likeFlag = false;
+         if(req.isAuthenticated()){
+            const user = await models.User.findByPk(req.user.id);
+            likeFlag = await shop.hasLikeUser(user);
+         }
+         const countLike = await shop.countLikeUser();
+         
 
          let cartList = {};
          let cartLength = 0;
@@ -23,10 +31,44 @@ exports.get_shops_detail = async (req, res, next) => {
              }
          }
 
-         res.render('shops/detail.html', {shop , cartLength , shopFlag});
+
+         res.render('shops/detail.html', {shop , cartLength , shopFlag, countLike , likeFlag});
     }catch(e){
         console.error(e);
         next(e);
     }
 
+}
+
+exports.post_shops_like = async(req, res, next) => {
+    try{
+        const shop = await models.Shops.findByPk(req.params.shop_id);
+        const user = await models.User.findByPk(req.user.id);
+
+        const status = await user.addLikes(shop);
+
+        res.json({
+            status
+        });
+    }catch(e){
+        console.error(e);
+        next(e);
+    }
+}
+
+exports.delete_shops_like = async(req, res, next) => {
+    try{
+        const shop = await models.Shops.findByPk(req.params.shop_id);
+        const user = await models.User.findByPk(req.user.id);
+
+        const status = await user.removeLikes(shop);
+
+        res.json({
+            status
+        });
+
+    }catch(e){
+        console.error(e);
+        next(e);
+    }
 }

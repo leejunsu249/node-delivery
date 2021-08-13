@@ -141,7 +141,7 @@ class App {
     }
 
     getRouting (){
-        this.app.use(require('./controllers'))
+        this.app.use(require('./controllers'));
     }
 
     status404() {        
