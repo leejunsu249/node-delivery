@@ -1,1 +1,63 @@
-hello
+{% set title = "찜목록" %}
+{% extends "layout/client.html" %}
+{% block content %}
+<!-- restaurant detail -->
+
+<main class="container detail">
+ <h3 class="sub-title1" style="padding: 20px 15px">찜한 상점</h3>
+ <div>
+   <table class= "table table-bordered" style=" margin: auto; text-align: center;" >
+     <thead>
+     <tr >
+       <th></th>
+       <th style="text-align: center;">상점</th>
+       <th style="text-align: center;">주소</th>
+       <th style="text-align: center;">삭제</th>
+     </tr>
+     </thead>
+     <tbody>
+     {% for shop in shops %}
+     <tr data-id="{{shops.id}}">
+       <td>
+         {% if shop.thumbnail %}
+           <img src="/uploads/{{ shop.thumbnail }}" width="120" height="70" >
+         {% endif %}
+       </td>
+       <td>
+         <a href="/shops/{{ shop.id }}">
+           {{ shop.name }}
+         </a>
+       </td>
+       <td>{{ shop.address }}</td>
+        <td>
+       <a href="javascript:;"  onclick="removeRow(this)"  shop_id="{{shop.id}}" class="btn btn-danger">삭제</a>
+       </td>
+     </tr>
+
+     {% else %}
+     <tr>
+       <td colspan="4">데이터가 없습니다.</td>
+     </tr>
+     {% endfor %}
+     </tbody>
+   </table>
+ </div>
+ </main>
+
+<script>
+  function removeRow(element){
+    var item = $(element).parent().parent();
+    var shop_id = parseInt($(element).attr('shop_id'));
+    $.ajax({
+            url : '/shops/like/' + shop_id,
+            method : 'DELETE'
+          }).done(function(result){ 
+                 item.remove();
+          }).fail(function(){
+
+          })
+   }
+
+</script>
+
+{% endblock %}

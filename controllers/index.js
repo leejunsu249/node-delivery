@@ -8,6 +8,7 @@ router.use('/chat', require('./chat'));
 router.use('/shops', require('./shops'));
 router.use('/cart', require('./cart'));
 router.use('/checkout', require('./checkout'));
+router.use('/myPage', require('./myPage'));
 router.use('/', require('./home'));
 
 
