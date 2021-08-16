@@ -96,10 +96,29 @@
       buyer_tel: buyer_tel,
       buyer_addr: buyer_addr,
       buyer_postcode: buyer_postcode,
-      m_redirect_url : 'http://localhost:3000/checkout/complete'
+      m_redirect_url : ` https://14e47ced2f89.ngrok.io/checkout/complete?menuArray=${menuArray}&shop_id=${shop_id}`
     }, rsp => { // callback
       if (rsp.success) {
-          $.ajax({
+          
+          document.location.href = "/checkout/complete?imp_uid=" + rsp.imp_uid + `&menuArray=${menuArray}&shop_id=${shop_id}`;
+
+      } else {
+          let msg = '결제에 실패하였습니다.';
+          msg += '에러내용 : ' + rsp.error_msg;
+          alert(msg);
+      }
+    });
+        return false;
+    });
+ });
+             
+ </script>
+{% endblock %}
+
+
+
+{# 
+$.ajax({
             url:'/checkout/complete',
             type:'POST',
             data:{
@@ -126,16 +145,4 @@
         }).fail((e) => {
             console.log(e);
         });
-  
-      } else {
-          let msg = '결제에 실패하였습니다.';
-          msg += '에러내용 : ' + rsp.error_msg;
-          alert(msg);
-      }
-    });
-        return false;
-    });
- });
-             
- </script>
-{% endblock %}
+   #}

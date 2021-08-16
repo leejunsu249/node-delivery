@@ -183,7 +183,10 @@ exports.remove_menu = async(req, res) => {
 
 exports.get_order = async (req, res) => {
     try{
-        const checkouts = await models.Checkout.findAll();
+        const checkouts = await models.Checkout.findAll({
+            include:['Shop'],
+            where:{[`$Shop.user_id$`]: req.user.username}
+        });
         res.render('admin/order.html', {checkouts});
     }catch(e){
         console.error(e);
