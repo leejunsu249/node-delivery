@@ -4,6 +4,7 @@
 {% block content -%}
     <form action="" method="post" enctype="multipart/form-data">
         <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <input type="hidden" name="user_id" value="{{currentUser.username}}" />
         <table class="table table-bordered">
             <tr>
               <th>이름</th>
@@ -96,6 +97,5 @@ $('#map_search').click(function(){
         }
     }).open();
 });
-
 </script>
 {% endblock %}

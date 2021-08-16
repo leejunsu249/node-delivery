@@ -2,8 +2,7 @@ const models = require('../../models');
 
 exports.get_home_list =  async( req , res, next )=>{
     try{
-    const shops = await models.Shops.findAll({
-
+      const shops  = await models.Shops.findAll({
         ...( req.query.lat && req.query.lng ? 
             {
                 attributes: {
@@ -16,15 +15,18 @@ exports.get_home_list =  async( req , res, next )=>{
                     ]
                   ]
                 },
-               
+
+                limit :  req.query.limit,
+                offset : req.offset,
+        
                 order  : [ [ models.sequelize.literal('distance'), 'asc' ] ]
                  
               }
 
-              : '')
+              : {limit :  req.query.limit, offset : req.offset})
             });
          
-    res.render('home.html', {shops});
+          res.render('home.html', {shops});
     }catch(e){
         console.error(e);
         next(e);

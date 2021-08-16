@@ -1,12 +1,27 @@
 const models= require('../../models');
 
-exports.get_shops = async ( _ , res ) => {
+exports.get_shops = async ( req , res ) => {
+
+const paginate = require('express-paginate');
 
     try{
+        
+        const [shops, totalCount] = await Promise.all([
+             
+             await models.Shops.findAll({
+                where: {user_id: req.user.username},
+                limit :  req.query.limit,
+                offset : req.offset,
+                order : [['createdAt', 'desc']]
+            })
+            ,
+            await models.Shops.count()
+        ])
+        
+        const pageCount = Math.ceil(totalCount / req.query.limit);
+        const pages = paginate.getArrayPages(req)(10 , pageCount, req.query.page);//10 = 최대10p씩 페이징
 
-        const shops = await models.Shops.findAll();
-
-        res.render( 'admin/shops.html' , { shops });
+        res.render( 'admin/shops.html' , { shops, pages, pageCount });
 
     }catch(e){
 

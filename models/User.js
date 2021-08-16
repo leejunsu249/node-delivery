@@ -28,8 +28,12 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull:true,
                 defaultValue: 'local', 
-            }  
-            
+            },
+            isadmin:{
+                 type: DataTypes.BOOLEAN, 
+                 allowNull: false, 
+                 defaultValue: false,
+            },      
         },{
             tableName: 'User'
         }
@@ -46,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
             sourceKey: 'id',
             constraints: false,
           });
+
        
         };    
     

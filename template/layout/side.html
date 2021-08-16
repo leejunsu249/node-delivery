@@ -32,7 +32,14 @@
                 <i class="fa fa-heart" aria-hidden="true"></i>
                 나의 찜 목록
               </a></li>
+              {% if currentUser.isadmin %}
+              <li><a href="/admin/shops">
+                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                나의 상점 관리
+              </a></li>
+            {% endif %}
             </ul>
+
             <a href="/accounts/logout" class="btn btn-default btn-block btn-lg">로그아웃</a>
           </div>
 
