@@ -199,7 +199,7 @@ exports.get_order_edit = async (req, res) => {
             where : {
                 id: req.params.id,
             },
-            include : ['Menu', 'Shop'],
+            include : ['Menu', 'Shop', 'User'],
         });
         res.render('admin/order_edit.html', {checkout});
     }catch(e){
@@ -207,7 +207,7 @@ exports.get_order_edit = async (req, res) => {
     }
 }
 
-exports.remove_order = async (req, res) => {
+exports.remove_order = async (req, res, next) => {
     try{          
         const checkout = await models.Checkout.findByPk(req.params.id);
         const menuArray = await models.ShopsMenu.findAll({
@@ -224,5 +224,20 @@ exports.remove_order = async (req, res) => {
         res.redirect('/admin/order/');
     }catch(e){
         console.error(e);
+        next(e);
+    }
+}
+
+exports.post_order_edit = async ( req, res, next) => {
+    try{
+        await models.Checkout.update(req.body,
+            {
+                where : { id : req.params.id}
+            });
+        res.redirect('/admin/order');
+
+    }catch(e){
+        console.error(e);
+        next(e);
     }
 }

@@ -84,10 +84,25 @@
       </ul>
       </div>
       </section>
-
     </main>
+    <div class="container delivery-check hidden" id="delivert-check-id">
+      <div class="row">
+        <div class="col-xs-12 sub-title1 ">
+          조리가 완료되었습니다.
+        </div>
+      </div>
+    </div>
+
+<script src="/socket.io/socket.io.js"></script>
 <script src="/static/js/kakaomap.js"></script>
 <script>
+var socket = io();
+socket.on("server order", function(){
+  setTimeout(function(){$('#delivert-check-id').toggleClass('hidden');},3000);
+  $('#delivert-check-id').removeClass('hidden');
+});
+
+
 var shops = {{shops | dump | safe}};
 window._defaultGeo = {
   lat : 37.628725516971784,

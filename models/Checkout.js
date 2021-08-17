@@ -42,6 +42,13 @@ module.exports = function(sequelize, DataTypes){
                 targetKey : 'id'
             });
 
+        Checkout.belongsTo( models.User,
+            {
+                as : 'User',
+                foreignKey : 'user_id',
+                targetKey : 'id'
+            });
+
 
 
     }

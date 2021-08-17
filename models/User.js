@@ -51,6 +51,12 @@ module.exports = (sequelize, DataTypes) => {
             constraints: false,
           });
 
+        User.hasOne(models.Checkout, {
+            as: 'Checkout',
+            foreignKey: 'user_id',
+            sourceKey:'id',
+        });
+
        
         };    
     

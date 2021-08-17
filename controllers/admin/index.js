@@ -34,6 +34,7 @@ router.get('/order', ctrl.get_order);
 
 //주문
 router.get('/order/edit/:id', ctrl.get_order_edit);
+router.post('/order/edit/:id', ctrl.post_order_edit);
 
 router.get('/order/remove/:id', ctrl.remove_order);
 

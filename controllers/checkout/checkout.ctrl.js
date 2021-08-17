@@ -61,7 +61,7 @@ exports.get_complete = async(req, res) => {
         buyer_addr : iamportData.data.buyer_addr,
         buyer_postcode : iamportData.data.buyer_postcode,
         shop_id : req.query.shop_id,
-        status:"success"
+        status:"결제완료"
       });
       const menuArray = JSON.parse(req.query.menuArray); //중괄호 오류 분리
 

@@ -3,7 +3,7 @@
 {% block content %}
 
  <h3>주문상세표</h3>
- <form action="" method="post">
+ <form action="" method="post" id="orderForm">
      <table class="table table-bordered table-hover">
          <tbody>
              <tr>
@@ -65,5 +65,18 @@
      <a href="/admin/order" class="btn btn-default">목록으로</a>
      <button class="btn btn-primary">상태변경</button>
  </form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var socket = io();
+$(document).ready(function(){
+    $('#orderForm').submit(function(){
+            if($('select[name=status]').val()=='조리완료'){
+                socket.emit("client order",{ user_id : {{ checkout.User.id}} });
+            }
+    })
+});
+
+</script>
   
 {% endblock %}
