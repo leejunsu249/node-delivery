@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             cell_phone : { type: DataTypes.STRING , comment: '핸드폰번호' },
             geo : {type : DataTypes.GEOMETRY('POINT')},
             user_id : {type : DataTypes.STRING},
+            likeshop : {type : DataTypes.BIGINT.UNSIGNED, defaultValue: 0} 
         }
     );
 
@@ -38,6 +39,18 @@ module.exports = (sequelize, DataTypes) => {
             sourceKey:'id',
             onDelete: 'CASCADE'
         });
+
+
+        Shops.belongsToMany( models.Tag ,{
+            through: {
+                model: 'TagShop',
+                unique: false
+            },
+            as : 'Tag',
+            foreignKey: 'shop_id',
+            sourceKey: 'id',
+            constraints: false
+        });      
      }
 
 

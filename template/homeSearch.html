@@ -9,15 +9,14 @@
         <div class="col-xs-12">
           <h2 class="h6 title">주위에 {{shopcount}}개의 식당이 있어요</h2>
           <div class="input-group searchInputGroup">
-          <form action="/search" method="get">
             <label for="searchInput" class="a11y-hidden">식당 검색</label>
-            <input type="text" id="searchInput" class="form-control "  name = "name" value="{{req.query.name}}" placeholder="식당이름으로 검색해보세요" style="width:1000px; height:100%;"/>
+            <input type="text" id="searchInput" class="form-control " name ="name" value="{{req_query.name}}" placeholder="식당이름으로 검색해보세요">
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" style=" height:32.48px;">
+              <button type="button" class="btn btn-default" id="search_btn" >
                 <i class="fa fa-search" aria-hidden="true"></i>
+                <span class="a11y-hidden">검색하기</span>
               </button>
             </span>
-          </form>
           </div>
           <ul class="hash-tag body2">
             <li><a href="/search?name=맛집">#맛집</a></li>
@@ -28,19 +27,6 @@
           </ul>
         </div>
       </section>
-      <section class="row map">
-        <div class="col-xs-8">
-          <h2 class="sub-title1">가까운 음식점</h2>
-          <p class="body1">근처에 가까운 음식점이 있어요.</p>
-        </div>
-        <div class="col-xs-4">
-          <button type="button" class="pull-right btn btn-point btn-line btn-sm">
-            지도에서 보기
-          </button>
-        </div>
-        
-        <div id="map_area" style="width:100%;height:350px; margin:10px 0 50px 0;"></div>
-      </section>
       <section class="row restaurant">
         <div class="col-xs-7 col-xs-offset-5">
           <button type="button" id= "order_byNear" class="btn btn-link btn-sort
@@ -49,8 +35,8 @@
             <i class="fa fa-arrows-h" aria-hidden="true"></i>
             <span>거리순</span>
           </button>
-          <button type="button" id="order_like" class="btn btn-link btn-sort
-          {% if req_path.split('/')[1] === 'orderlike' %}active{% endif %}" style="cursor:pointer;">
+          <button type="button" id= "likeshop" class="btn btn-link btn-sort
+          {% if req_path.split('/')[2] === 'likeorder' %}active{% endif %}" style="cursor:pointer;">
             <i class="fa fa-heart" aria-hidden="true"></i>
             <span>인기순</span>
           </button>
@@ -71,40 +57,10 @@
             {% endfor %}
         
         </div>
-        <div style="text-align: right;">
-        <ul class="pagination" >
-            <li>
-                <a href="{{paginate.href(true)}}" aria-label="Previous">
-                    <span >&laquo;</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{paginate.href()}}">
-                    <span >&raquo;</span>
-                </a>
-            </li>
-      </ul>
-      </div>
       </section>
     </main>
-    <div class="container delivery-check hidden" id="delivert-check-id">
-      <div class="row">
-        <div class="col-xs-12 sub-title1 ">
-          조리가 완료되었습니다.
-        </div>
-      </div>
-    </div>
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="/static/js/kakaomap.js"></script>
 <script>
-
-var socket = io();
-socket.on("server order", function(){
-  setTimeout(function(){$('#delivert-check-id').toggleClass('hidden');},3000);
-  $('#delivert-check-id').removeClass('hidden');
-});
-
 
 var shops = {{shops | dump | safe}};
 window._defaultGeo = {
@@ -118,16 +74,6 @@ if(navigator.geolocation){
   window._defaultGeo.lat = position.coords.latitude;
   window._defaultGeo.lng = position.coords.longitude;
 
-  var mapContainer = new kakao.maps.Map(
-
-   document.getElementById("map_area"),
-   {
-       center: new kakao.maps.LatLng(window._defaultGeo.lat,window._defaultGeo.lng), 
-       level: 5
-    }
-  );
-  homeMap(mapContainer, shops, window._defaultGeo.lat, window._defaultGeo.lng);
-  mapContainer.setCenter(new kakao.maps.LatLng(window._defaultGeo.lat,window._defaultGeo.lng));
   }, function(error){
 
     if(error.code ==1){
@@ -143,15 +89,31 @@ if(navigator.geolocation){
 }
 
 $(document).ready(function(){
+
+
+  $('#likeshop').click(function(e){
+  var nameb = $('input[name=name]').val();
+  location.href = `/search/likeorder?name=${nameb}`;
+  });
+  
   $('#order_byNear').click(function(e){
-      e.preventDefault();
-      location.href = `/?lat=${window._defaultGeo.lat}&lng=${window._defaultGeo.lng}`;
+      var params = "{{req_query.name}}"
+      params ? location.href = `/search/?name=${params}&lat=${window._defaultGeo.lat}&lng=${window._defaultGeo.lng}`
+      : location.href = `/search?lat=${window._defaultGeo.lat}&lng=${window._defaultGeo.lng}`
   });
 
-  $('#order_like').click(function(e){
-      e.preventDefault(); 
-      location.href = '/orderlike'
+  $('#search_btn').click(function(e){
+    var nameb = $('input[name=name]').val();
+    location.href = `/search?name=${nameb}`;
   });
+   $('#searchInput').keydown(function(key) {
+      if (key.keyCode == 13) {
+        var nameb = $('input[name=name]').val();
+        location.href = `/search?name=${nameb}`;
+      }
+  });
+
+
 
 });
 

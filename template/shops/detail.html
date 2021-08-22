@@ -54,6 +54,11 @@
           {% endif %}
           </li>
         </ul>
+        <ul class="col-xs-12 info1 body1">
+         {% for tag in shop.Tag %}
+         <li><a href="search/?name={{ tag.name }}">#{{ tag.name }}</a></li>
+         {% endfor %}
+       </ul>
       </section>
       <section class="row menu-board">
         <div class="col-xs-12">

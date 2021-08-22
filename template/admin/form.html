@@ -46,6 +46,33 @@
               <th>핸드폰번호</th>
               <td><input type="text" name="cell_phone" class="form-control" value="{{ shop.cell_phone }}"/></td>
             </tr>
+
+            {% if '/admin/shops/edit/' in req_path %}
+            <tr>
+               <th>태그</th>
+               <td>
+                   <div class="row">
+                       <div class="col-sm-5">
+                           <input type="text" id="tag_input" class="form-control" placeholder="입력후 엔터 태그추가 버튼을 눌러주세요">
+                       </div>
+                       <div class="col-sm-7">
+                           <a class="btn btn-primary btn-sm btn_select" id="tag_submit" style="display: inline-block">
+                               태그 추가
+                           </a>
+                       </div>
+                   </div>
+                   <div id="tag_area">
+                   {% for tag in shop.Tag %}
+                   <div class="icon_tag">
+                    {{tag.name}}
+                    <a href="#" class="delete_tag" tag_id="{{tag.id}}">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    </a>  
+                   </div>
+                   {% endfor %}
+               </td>
+            </tr>
+          {% endif %}
         </table>
         <button class="btn btn-primary">작성하기</button>
     </form>
@@ -97,5 +124,84 @@ $('#map_search').click(function(){
         }
     }).open();
 });
+
+$('#tag_submit').click(function(e){
+   e.preventDefault();
+   var $shop_id = "{{ shop.id }}";
+   var $tag_input = $('#tag_input');
+   if(!$tag_input.val()){
+       alert('태그명을 입력하세요');
+       $tag_input.focus();
+       return false;
+   }
+
+   if($tag_input.val().length < 2 ){
+       alert('두글자 이상 입력하세요.');
+       $tag_input.focus();
+       return false;
+   }
+
+   $.ajax({
+       url : '/admin/tag',
+       type: 'post',
+       data : {
+           name : $tag_input.val().trim(),
+           shop_id : $shop_id
+       }
+   })
+   .done(function(result){
+
+       if(result.status.length){
+           var tag = result.tag;
+           $('#tag_area').append('\
+               <div class="icon_tag">' +
+                   tag.name +
+                   ' <a href="#" class="delete_tag" \
+                       tag_id="' + tag.id +'" > \
+                       <i class="fa fa-times" aria-hidden="true"></i> \
+                   </a> \
+               </div>\
+           ');
+           $('#tag_input').val('');
+       }else{
+           alert('이미 있는 등록된 태그입니다.');
+       }
+      
+   })
+   .fail(function(result){
+       console.log(result);
+       alert('오류 발생');
+   });
+});
+
+$('.delete_tag').click(function(e){
+     e.preventDefault();
+     var shop_id ="{{shop.id}}";
+     var $self = $(this);
+
+     $.ajax({
+       url : '/admin/tag/'+shop_id+ '/' +$self.attr('tag_id'),
+       type: 'delete'      
+   })
+   .done(function(result){
+     $self.parent().remove();
+   })
+   .fail(function(result){
+      console.log(result);
+   });
+});
+
 </script>
+<style>
+.icon_tag{
+  display: inline-block;
+  background-image: linear-gradient(45deg, #5155a3 , #9c387a, #c82764);
+  padding: 3px 10px;
+  font-size: 1.2em;
+  margin: 5px 0 30px;
+  border-radius: 50px;
+  color:#fff;
+}
+.icon_tag a{display:inline-block;color:#fff;}
+</style>
 {% endblock %}

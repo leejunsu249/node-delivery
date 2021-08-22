@@ -6,20 +6,19 @@ const paginate = require('express-paginate');
 
     try{
         
-        const [shops, totalCount] = await Promise.all([
-             
-             await models.Shops.findAll({
+        const shopsAll = await models.Shops.findAndCountAll({
                 where: {user_id: req.user.username},
                 limit :  req.query.limit,
                 offset : req.offset,
                 order : [['createdAt', 'desc']]
-            })
-            ,
-            await models.Shops.count()
-        ])
+            });
         
-        const pageCount = Math.ceil(totalCount / req.query.limit);
-        const pages = paginate.getArrayPages(req)(10 , pageCount, req.query.page);//10 = 최대10p씩 페이징
+        const totalCount = await shopsAll.count;
+        const shops = await shopsAll.rows;
+
+        
+         const pageCount = Math.ceil(totalCount / req.query.limit);
+         const pages = paginate.getArrayPages(req)(10 , pageCount, req.query.page);//10 = 최대10p씩 페이징
 
         res.render( 'admin/shops.html' , { shops, pages, pageCount });
 
@@ -83,7 +82,16 @@ exports.get_shops_edit = async(req, res) => {
 
     try{
 
-        const shop = await models.Shops.findByPk(req.params.id);
+        const shop = await models.Shops.findOne({
+            where : { id : req.params.id},
+            include : [
+                { model : models.Tag, as : 'Tag' }
+            ],
+            order: [
+                [ 'Tag', 'createdAt', 'desc' ]
+            ]
+        });
+       
         res.render('admin/form.html', { shop , csrfToken : req.csrfToken() });  
 
     }catch(e){
@@ -237,6 +245,47 @@ exports.post_order_edit = async ( req, res, next) => {
         res.redirect('/admin/order');
 
     }catch(e){
+        console.error(e);
+        next(e);
+    }
+}
+
+exports.write_tag = async( req, res, next) => {
+    try{
+        const tag = await models.Tag.findOrCreate({
+            where: {
+                name : req.body.name
+            }
+        });
+ 
+        const shop = await models.Shops.findByPk(req.body.shop_id);
+        const status = await shop.addTag(tag[0]);
+ 
+        res.json({
+            status : status,
+            tag : tag[0]
+        })
+
+    }catch(e){
+        res.json(e);
+        console.error(e);
+        next(e);
+    }
+}
+exports.delete_tag = async(req, res, next) => {
+    try{
+       const shop = await models.Shops.findByPk(req.params.shop_id);
+       const tag = await models.Tag.findByPk(req.params.tag_id);
+
+       const result = await shop.removeTag(tag);
+      
+       res.json({
+           result : result
+       });
+
+
+    }catch(e){
+        res.json(e);
         console.error(e);
         next(e);
     }

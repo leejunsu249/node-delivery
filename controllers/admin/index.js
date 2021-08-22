@@ -38,5 +38,8 @@ router.post('/order/edit/:id', ctrl.post_order_edit);
 
 router.get('/order/remove/:id', ctrl.remove_order);
 
+//태그
+router.post('/tag', ctrl.write_tag);
+router.delete('/tag/:shop_id/:tag_id', ctrl.delete_tag);
 
 module.exports = router;

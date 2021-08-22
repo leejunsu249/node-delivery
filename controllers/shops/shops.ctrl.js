@@ -5,8 +5,8 @@ exports.get_shops_detail = async (req, res, next) => {
     try{
          const shop = await models.Shops.findOne({
              where: { id : req.params.id},
-             include : ['Menu', 'LikeUser'],
-         })
+             include : ['Menu', 'LikeUser','Tag'],
+         });
 
          let likeFlag = false;
          if(req.isAuthenticated()){
@@ -32,7 +32,7 @@ exports.get_shops_detail = async (req, res, next) => {
          }
 
 
-         res.render('shops/detail.html', {shop , cartLength , shopFlag, countLike , likeFlag});
+         res.render('shops/detail.html', {shop , cartLength , shopFlag, countLike , likeFlag });
     }catch(e){
         console.error(e);
         next(e);
@@ -46,6 +46,9 @@ exports.post_shops_like = async(req, res, next) => {
         const user = await models.User.findByPk(req.user.id);
 
         const status = await user.addLikes(shop);
+
+        const countLike = await shop.countLikeUser();
+        await shop.update({likeshop: countLike});
 
         res.json({
             status
@@ -62,6 +65,9 @@ exports.delete_shops_like = async(req, res, next) => {
         const user = await models.User.findByPk(req.user.id);
 
         const status = await user.removeLikes(shop);
+
+        const countLike = await shop.countLikeUser();
+        await shop.update({likeshop: countLike});
 
         res.json({
             status
