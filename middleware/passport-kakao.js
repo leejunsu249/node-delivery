@@ -1,12 +1,12 @@
 const passport = require('passport');
-const FacebookStrategy = require('passport-kakao').Strategy;
+const KakaoStrategy = require('passport-kakao').Strategy;
 const models = require('../models');
 const dotenv = require('dotenv');
 dotenv.config();
 
-    passport.use(new FacebookStrategy({
+    passport.use(new KakaoStrategy({
         clientID: process.env.KAKAO_ID,
-        callbackURL: '/auth/kakao/callback',
+        callbackURL: `${process.env.SITE_DOMAIN}/auth/kakao/callback`,
     },
     async ( accessToken, refreshToken, profile, done ) => {
         try{
