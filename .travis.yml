@@ -9,7 +9,7 @@ before_install:
   - docker build -t leejs/node-delivery-test ./
 
 script:
-  - docker run -e CI=true leejs/node-delivery-test npm start
+  - docker run -e CI=true leejs/node-delivery-test
 
 after_success:
 
