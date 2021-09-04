@@ -1,4 +1,4 @@
-require('./removeByValue')();
+require('./removeByvalue')();
 
 
 module.exports =  (io) => {
@@ -29,7 +29,7 @@ module.exports =  (io) => {
       });
 
       socket.on('disconnect', () => {            
-        userList.removeByValue(user.displayname);
+        userList.removeByvalue(user.displayname);
         io.emit('leave', userList);
       });
 

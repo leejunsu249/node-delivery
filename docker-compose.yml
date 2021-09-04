@@ -1,0 +1,26 @@
+version: '3'
+services:
+  nginx: 
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports: 
+      - "80:80"
+
+  app1:
+    image: leejs/node-delivery
+    environment:
+      - APPID=3000
+  app2:
+    image: leejs/node-delivery
+    environment:
+      - APPID=3001
+  app3:
+    image: leejs/node-delivery
+    environment:
+      - APPID=3002
+  app4:
+    image: leejs/node-delivery
+    environment:
+      - APPID=3003
