@@ -6,11 +6,11 @@ services:
   - docker
 
 before_install:
-  - docker build -t leejs/node-delivery ./
+  - docker build -t wnstn385/node-delivery ./
 
 script:
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
-  - docker push leejs/node-delivery
+  - docker push wnstn385/node-delivery
 
 after_success:
  - echo "success"
