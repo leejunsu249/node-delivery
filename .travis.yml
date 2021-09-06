@@ -17,9 +17,8 @@ script:
 
 after_success:
  - echo "success"
-
-
- deploy:
+ 
+deploy:
   provider: elasticbeanstalk
   region: "ap-northeast-2"
   app: "node-delivery"
