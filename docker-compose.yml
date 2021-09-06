@@ -5,20 +5,25 @@ services:
     image: leejs/nginx
     ports: 
       - "80:80"
+    mem_limit: 128m
 
   app1:
     image: leejs/node-delivery
     environment:
       - APPID=3000
+    mem_limit: 128m
   app2:
     image: leejs/node-delivery
     environment:
       - APPID=3001
+    mem_limit: 128m
   app3:
     image: leejs/node-delivery
     environment:
       - APPID=3002
+    mem_limit: 128m
   app4:
     image: leejs/node-delivery
     environment:
       - APPID=3003
+    mem_limit: 128m
