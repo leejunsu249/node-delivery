@@ -1,0 +1,33 @@
+language: generic
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t wnstn385/node-delivery ./
+  - docker build -t wnstn385/nginx ./nginx
+
+script:
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+  - docker push wnstn385/node-delivery
+  - docker push wnstn385/nginx
+  
+
+after_success:
+ - echo "success"
+
+deploy:
+  provider: elasticbeanstalk
+  edge: true
+  region: "ap-northeast-2"
+  app: "node-delivery"
+  env: "Nodedelivery-env-1"
+  bucket_name: elasticbeanstalk-ap-northeast-2-897035109907
+  bucket_path: "node-delivery"
+  on:
+    branch: master
+  
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_ACCESS_KEY

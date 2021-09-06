@@ -1,0 +1,29 @@
+version: '3'
+services:
+  nginx: 
+    restart: always
+    image: wnstn385/nginx
+    ports: 
+      - "80:80"
+    mem_limit: 128m
+
+  app1:
+    image: wnstn385/node-delivery
+    environment:
+      - APPID=3000
+    mem_limit: 128m
+  app2:
+    image: wnstn385/node-delivery
+    environment:
+      - APPID=3001
+    mem_limit: 128m
+  app3:
+    image: wnstn385/node-delivery
+    environment:
+      - APPID=3002
+    mem_limit: 128m
+  app4:
+    image: wnstn385/node-delivery
+    environment:
+      - APPID=3003
+    mem_limit: 128m

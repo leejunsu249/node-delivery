@@ -1,6 +1,13 @@
 const app = require('./app.js');
+const port_number = process.env.APPID;
 
-app.set('port',3000);
+if(process.env.TRAVIS == "TRAVIS"){
+    app.set('port',3000);
+}
+else{
+    app.set('port',port_number);
+}
+
 
 const server = app.listen( app.get('port'), function(){
     console.log('Express listening on port',app.get('port'));

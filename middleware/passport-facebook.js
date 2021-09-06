@@ -11,7 +11,7 @@ dotenv.config(); // LOAD CONFIG
 passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_APPID,
     clientSecret: process.env.FACEBOOK_SECRETCODE,
-    callbackURL: `${process.env.SITE_DOMAIN}/auth/facebook/callback`,
+    callbackURL: process.env.SITE_DOMAIN +'/auth/facebook/callback',
 },
 async ( accessToken, refreshToken, profile, done ) => {
     try{

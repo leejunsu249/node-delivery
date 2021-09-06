@@ -6,7 +6,7 @@ dotenv.config();
 
     passport.use(new KakaoStrategy({
         clientID: process.env.KAKAO_ID,
-        callbackURL: `${process.env.SITE_DOMAIN}/auth/kakao/callback`,
+        callbackURL:process.env.SITE_DOMAIN + '/auth/kakao/callback',
     },
     async ( accessToken, refreshToken, profile, done ) => {
         try{
