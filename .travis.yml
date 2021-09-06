@@ -17,12 +17,12 @@ script:
 
 after_success:
  - echo "success"
- 
+
 deploy:
   provider: elasticbeanstalk
   region: "ap-northeast-2"
   app: "node-delivery"
-  env: "Nodedelivery-env"
+  env: "Nodedelivery-env-1"
   bucket_name: elasticbeanstalk-ap-northeast-2-897035109907
   bucket_path: "node-delivery"
   on:
