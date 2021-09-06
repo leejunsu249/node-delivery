@@ -7,10 +7,13 @@ services:
 
 before_install:
   - docker build -t wnstn385/node-delivery ./
+  - docker build -t wnstn385 /nginx ./
 
 script:
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
   - docker push wnstn385/node-delivery
+  - docker push wnstn385/nginx
+  
 
 after_success:
  - echo "success"

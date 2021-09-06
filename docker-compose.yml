@@ -2,9 +2,7 @@ version: '3'
 services:
   nginx: 
     restart: always
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
+    image: leejs/nginx
     ports: 
       - "80:80"
 
