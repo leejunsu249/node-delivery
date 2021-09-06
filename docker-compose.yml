@@ -2,28 +2,28 @@ version: '3'
 services:
   nginx: 
     restart: always
-    image: leejs/nginx
+    image: wnstn385/nginx
     ports: 
       - "80:80"
     mem_limit: 128m
 
   app1:
-    image: leejs/node-delivery
+    image: wnstn385/node-delivery
     environment:
       - APPID=3000
     mem_limit: 128m
   app2:
-    image: leejs/node-delivery
+    image: wnstn385/node-delivery
     environment:
       - APPID=3001
     mem_limit: 128m
   app3:
-    image: leejs/node-delivery
+    image: wnstn385/node-delivery
     environment:
       - APPID=3002
     mem_limit: 128m
   app4:
-    image: leejs/node-delivery
+    image: wnstn385/node-delivery
     environment:
       - APPID=3003
     mem_limit: 128m
