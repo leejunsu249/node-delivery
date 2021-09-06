@@ -1,7 +1,7 @@
 const app = require('./app.js');
 const port_number = process.env.APPID;
 
-if(process.env.TRAVIS){
+if(process.env.TRAVIS === "TRAVIS"){
     app.set('port',3000);
 }
 else{
