@@ -6,14 +6,11 @@ services:
   - docker
 
 before_install:
-  - cat .env.example | envsubst > .env
-  - docker build -t leejs/node-delivery-test ./
+  - docker build -t leejs/node-delivery ./
 
 script:
-  - docker run -e CI=true leejs/node-delivery-test
-
-after_success:
-
-  - docker build -t leejs/node-delivery ./
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
   - docker push leejs/node-delivery
+
+after_success:
+ - echo "success"
