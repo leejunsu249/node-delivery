@@ -3,7 +3,7 @@
 
 #### :books: 기술 스택
 
-![기술 스택](https://user-images.githubusercontent.com/57996036/127760905-2516e8c1-3952-466e-b868-30a9d2262d5e.PNG)
+![image](https://user-images.githubusercontent.com/57996036/132342004-551645d2-0574-4ead-a3f7-c88d0663b591.png)
 
 #### :boom:주요 기술
 1. 로그인 
