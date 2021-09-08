@@ -5,6 +5,10 @@
 
 ![image](https://user-images.githubusercontent.com/57996036/132342004-551645d2-0574-4ead-a3f7-c88d0663b591.png)
 
+![CICD1](https://user-images.githubusercontent.com/57996036/132429389-655c31d2-f336-4f57-be8f-1500d3f5b863.PNG)
+
+![서버구조](https://user-images.githubusercontent.com/57996036/132429479-de8bbfa4-e022-48db-b2f7-b57a01728cf6.PNG)
+
 #### :boom:주요 기술
 1. 로그인 
 2. 관리자 모드
