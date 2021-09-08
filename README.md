@@ -5,9 +5,13 @@
 
 ![image](https://user-images.githubusercontent.com/57996036/132342004-551645d2-0574-4ead-a3f7-c88d0663b591.png)
 
-![CICD1](https://user-images.githubusercontent.com/57996036/132429389-655c31d2-f336-4f57-be8f-1500d3f5b863.PNG)
+#### CI / CD
 
-![서버구조](https://user-images.githubusercontent.com/57996036/132429479-de8bbfa4-e022-48db-b2f7-b57a01728cf6.PNG)
+![image](https://user-images.githubusercontent.com/57996036/132429683-c886cd7b-ffac-4e72-8682-f3b5b1a50de1.png)
+
+#### 서버구조
+
+![서버구조](https://user-images.githubusercontent.com/57996036/132429750-36dacbd0-dfd4-4526-afb2-886023added5.PNG)
 
 #### :boom:주요 기술
 1. 로그인 
