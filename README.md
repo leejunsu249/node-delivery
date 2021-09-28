@@ -21,8 +21,6 @@
 5. 결제
 6. SOCKET 알림
 
-#### ⚡링크
-https://www.jsserver.shop/
 
 ![pageshot of 'JS DELIVERY' @ 2021-08-24-2245'38](https://user-images.githubusercontent.com/57996036/130628007-92859bc3-1b0d-4130-a854-2f25f8528c2b.png)
 
